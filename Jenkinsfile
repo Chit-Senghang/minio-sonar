@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from GitHub
-                git 'https://github.com/Chit-Senghang/minio-sonar.git'
+                git branch: 'main', url: 'https://github.com/Chit-Senghang/minio-sonar.git'
             }
         }
 
