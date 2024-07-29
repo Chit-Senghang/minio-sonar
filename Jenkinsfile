@@ -1,33 +1,11 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Checkout') {
-            steps {
-                // Checkout code from GitHub
-                git branch: 'main', url: 'https://github.com/Chit-Senghang/minio-sonar.git'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                // Run your build commands here
-                echo 'Building...'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                // Run your test commands here
-                echo 'Testing...'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Run your deploy commands here
-                echo 'Deploying...'
-            }
-        }
+node {
+  stage('SCM') {
+    checkout scm
+  }
+  stage('SonarQube Analysis') {
+    def scannerHome = tool 'SonarScanner';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
     }
+  }
 }
